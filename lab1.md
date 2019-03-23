@@ -1,12 +1,9 @@
-1. Для чего используется запрос OPTIONS? Какие коды ответов приходят
-при этом запросе? Какие сайты правильно обработали запрос и
-вернули ожидаемые данные?
+### Для чего используется запрос OPTIONS? Какие коды ответов приходят при этом запросе? Какие сайты правильно обработали запрос и вернули ожидаемые данные?
 
-OPTIONS - используется клиентским приложением для получения списка разрешенных сервером запросов.  
-Только www.google.com вернул ожидаемые данные, но окработал с ошибкой 403 нет доступа. 
-www.apple.com, www.msdn.com отработали без ошибок.
+> OPTIONS - используется клиентским приложением для получения списка разрешенных сервером запросов.Только www.google.com вернул ожидаемые >данные, но окработал с ошибкой 403 нет доступа. www.apple.com, www.msdn.com отработали без ошибок, Allow не вернули.
 
 OPTIONS www.google.com 405 - 405 Method Not Allowed
+```sh
 Allow →GET, HEAD
 Date →Fri, 22 Mar 2019 20:31:23 GMT
 Content-Type →text/html; charset=UTF-8
@@ -14,8 +11,10 @@ Server →gws
 Content-Length →1592
 X-XSS-Protection →1; mode=block
 X-Frame-Options →SAMEORIGIN
+```
 
 OPTIONS www.msdn.com 200 - OK
+```sh
 Cache-Control →private
 Content-Type →text/html; charset=utf-8
 Server →Microsoft-IIS/10.0
@@ -32,8 +31,9 @@ Content-Encoding →gzip
 Date →Fri, 22 Mar 2019 20:36:26 GMT
 Content-Length →8255
 Connection →keep-alive
-
+```
 OPTIONS www.apple.com 200 - OK
+```sh
 X-Content-Type-Options →nosniff
 X-Xss-Protection →1; mode=block
 Content-Encoding →gzip
@@ -42,38 +42,43 @@ Expires →Fri, 22 Mar 2019 20:40:13 GMT
 Date →Fri, 22 Mar 2019 20:38:41 GMT
 Content-Length →7978
 Connection →keep-alive
+```
 
 OPTIONS www.vk.com 418 - I'm a teapot (RFC 2324)
+```sh
 Server →Internet Information Services
 Date →Fri, 22 Mar 2019 20:39:20 GMT
 Content-Length →0
 Connection →keep-alive
 X-Frontend →front504217
 Access-Control-Expose-Headers →X-Frontend
+```
 
 OPTIONS www.yandex.ru 403 - Forbidden
+```sh
 Date →Fri, 22 Mar 2019 20:40:10 GMT
 Content-Type →text/html; charset=utf-8
 ETag →W/"5c951b55-3077"
 Content-Encoding →gzip
 X-Content-Type-Options →nosniff
 Transfer-Encoding →chunked
+```
+### Запрос HEAD. vk.com, www.apple.com, www.msn.com. Для чего нужен запрос HEAD? Какой сайт прислал ожидаемый ответ?
 
-2. Запрос HEAD. vk.com, www.apple.com, www.msn.com .
-Для чего нужен запрос HEAD? Какой сайт прислал ожидаемый ответ?
-
-HEAD - получение заголовков ресурса. При таком запросе ресурс не возваращается.
-Все сайты прислали ожидаемые ответы, только заголовки.
+>HEAD - получение заголовков ресурса. При таком запросе ресурс не возваращается. Все сайты прислали ожидаемые ответы, только заголовки.
  
 HEAD vk.com - 418 I'm a teapot (RFC 2324)
+```sh
 Server →Internet Information Services
 Date →Fri, 22 Mar 2019 20:27:11 GMT
 Content-Length →0
 Connection →keep-alive
 X-Frontend →front204303
 Access-Control-Expose-Headers →X-Frontend
+```
 
 HEAD www.apple.com - 200 OK
+```sh
 Server →Apache
 X-Frame-Options →SAMEORIGIN
 X-Xss-Protection →1; mode=block
@@ -87,8 +92,10 @@ Expires →Fri, 22 Mar 2019 20:30:01 GMT
 Date →Fri, 22 Mar 2019 20:28:57 GMT
 Connection →keep-alive
 Vary →Accept-Encoding
+```
 
 HEAD www.msdn.com - 200 OK
+```sh
 X-Powered-By →ARR/3.0
 X-Powered-By →ASP.NET
 x-instance →AZ_MSDN_TN_09
@@ -100,20 +107,17 @@ Content-Encoding →gzip
 Date →Fri, 22 Mar 2019 20:29:49 GMT
 Content-Length →20
 Connection →keep-alive
+```
+### Запросы GET и POST. Отправьте по запросу на yandex.ru, google.com и apple.com. Что они вернули? Что содержится в теле ответа?
 
-3. Запросы GET и POST. Отправьте по запросу на yandex.ru,
-google.com и apple.com. Что они вернули? Что содержится в теле
-ответа?
+>GET - Получение данных с сервера.
+>POST - Отправка данных на сервер для обработки.
 
-GET - Получение данных с сервера.
-POST - Отправка данных на сервер для обработки.
-
-При POST запросе сайты вернули: yandex.ru страницу с ошибкой сервера,www.google.com ошибку 405 Method Not Allowed,
-www.apple.com вернул статус 200 - все OK.
-При GET запросе сайты вернули: yandex.ru 200 OK стартовую страницу, www.google.com - 200 OK стартовая страница,
-www.apple.com - 200 OK стартовая страница.
+> При POST запросе сайты вернули: yandex.ru страницу с ошибкой сервера,www.google.com ошибку 405 Method Not Allowed, www.apple.com вернул >статус 200 - все OK.
+> При GET запросе сайты вернули: yandex.ru 200 OK стартовую страницу, www.google.com - 200 OK стартовая страница, www.apple.com - 200 OK >стартовая страница.
  
 GET www.yandex.ru 200 - OK
+```sh
 Date →Fri, 22 Mar 2019 20:17:27 GMT
 Content-Type →text/html; charset=UTF-8
 Cache-Control →no-cache,no-store,max-age=0,must-revalidate
@@ -128,8 +132,9 @@ X-Frame-Options →DENY
 Content-Encoding →gzip
 X-Content-Type-Options →nosniff
 Transfer-Encoding →chunked
-
+```
 GET www.google.com 200 - OK
+```sh
 Cache-Control →private, max-age=0
 Content-Type →text/html; charset=ISO-8859-1
 Content-Encoding →gzip
@@ -138,8 +143,10 @@ Content-Length →5861
 X-XSS-Protection →1; mode=block
 X-Frame-Options →SAMEORIGIN
 Set-Cookie →1P_JAR=2019-03-22-20; expires=Sun, 21-Apr-2019 20:20:10 GMT; path=/; domain=.google.com
+```
 
 GET www.apple.com 200 - OK
+```sh
 X-Frame-Options →SAMEORIGIN
 X-Content-Type-Options →nosniff
 X-Xss-Protection →1; mode=block
@@ -150,8 +157,9 @@ Expires →Fri, 22 Mar 2019 20:23:29 GMT
 Date →Fri, 22 Mar 2019 20:19:54 GMT
 Content-Length →7978
 Connection →keep-alive
-
+```
 POST www.yandex.ru 403 - Forbidden
+```sh
 Date →Fri, 22 Mar 2019 20:22:31 GMT
 Content-Type →text/html; charset=utf-8
 ETag →W/"5c951b55-3077"
@@ -167,8 +175,11 @@ Server →gws
 Content-Length →1589
 X-XSS-Protection →1; mode=block
 X-Frame-Options →SAMEORIGIN
+```
 
 POST www.google.com 405 - MEthod Not Allowed
+
+```sh
 Allow →GET, HEAD
 Date →Fri, 22 Mar 2019 20:34:44 GMT
 Content-Type →text/html; charset=UTF-8
@@ -176,8 +187,10 @@ Server →gws
 Content-Length →1589
 X-XSS-Protection →1; mode=block
 X-Frame-Options →SAMEORIGIN
+```
 
 POST www.apple.com 200 - OK
+```sh
 Server →Apache
 Content-Type →text/html; charset=UTF-8
 ETag →"KXKKJLLKHIXKXKVOX"
@@ -191,18 +204,16 @@ Expires →Fri, 22 Mar 2019 20:27:33 GMT
 Date →Fri, 22 Mar 2019 20:23:04 GMT
 Content-Length →7978
 Connection →keep-alive
+```
 
-4. Ответьте на вопросы: какой код ответа присылается от api?
-Что содержит тело ответа? В каком формате и какой кодировке
-содержаться данные? Какой веб-сервер отвечает на запросы?
-Какая версия протокола HTTP используется?
+### Ответьте на вопросы: какой код ответа присылается от api? Что содержит тело ответа? В каком формате и какой кодировке содержаться данные? Какой веб-сервер отвечает на запросы? Какая версия протокола HTTP используется?
 
-В формате JSON, кодировка utf-8 (Content-Type: application/json; charset=utf-8).
-Сервер Server: Internet Information Services. srv179-129-240-87.vk.com [87.240.129.179]
-Версия протокола HTTP/1.1 200 OK.
-
+> В формате JSON, кодировка utf-8 (Content-Type: application/json; charset=utf-8).
+>Сервер Server: Internet Information Services. srv179-129-240-87.vk.com [87.240.129.179]
+>Версия протокола HTTP/1.1 200 OK.
 
 Список факультетов: https://api.vk.com/method/database.getFaculties?university_id=250&count=10&access_token=XXX&v=5.92
+```sh
 {
     "response": {
         "count": 20,
@@ -250,7 +261,9 @@ Connection →keep-alive
         ]
     }
 }
+```
 Аватарка: https://api.vk.com/method/users.get?user_ids=harikeshi&fields=photo_50&access_token=XXX&v=5.92
+```sh
 {
     "response": [
         {
@@ -263,3 +276,4 @@ Connection →keep-alive
         }
     ]
 }
+```
