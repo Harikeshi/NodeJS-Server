@@ -212,10 +212,19 @@ Connection →keep-alive
 
 ### Ответьте на вопросы: какой код ответа присылается от api? Что содержит тело ответа? В каком формате и какой кодировке содержаться данные? Какой веб-сервер отвечает на запросы? Какая версия протокола HTTP используется?
 
-В формате JSON, кодировка utf-8 (Content-Type: application/json; charset=utf-8).
-Сервер Server: Internet Information Services. srv179-129-240-87.vk.com [87.240.129.179]
-Версия протокола HTTP/1.1 200 OK.
+Формат и кодировка
+```sh
+Content-Type: application/json; charset=utf-8).
+```
+Сервер
+```sh
+Server: Internet Information Services. srv179-129-240-87.vk.com [87.240.129.179]
+```
 
+Версия протокола
+```sh
+HTTP/1.1 200 OK.
+```
 Список факультетов: https://api.vk.com/method/database.getFaculties?university_id=250&count=10&access_token=XXX&v=5.92
 ```sh
 {
