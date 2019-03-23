@@ -4,7 +4,7 @@
  
  Только www.google.com вернул ожидаемые данные, но окработал с ошибкой 403 нет доступа. www.apple.com, www.msdn.com отработали без ошибок, Allow не вернули.
 
-OPTIONS www.google.com 405 - 405 Method Not Allowed
+OPTIONS www.google.com 405 - Method Not Allowed
 ```sh
 Allow →GET, HEAD
 Date →Fri, 22 Mar 2019 20:31:23 GMT
